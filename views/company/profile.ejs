@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+
+    <main class="container">
+        <h1>Perfil da Empresa</h1>
+
+        <div class="profile-container">
+            <form id="companyForm" class="profile-form">
+                <div class="form-group">
+                    <label for="name">Nome da Empresa</label>
+                    <input type="text" id="name" name="name" value="<%= company.name %>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" value="<%= company.email %>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="cnpj">CNPJ</label>
+                    <input type="text" id="cnpj" name="cnpj" value="<%= company.cnpj %>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Telefone</label>
+                    <input type="text" id="phone" name="phone" value="<%= company.phone %>">
+                </div>
+
+                <h3>Endereço</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="address.street">Rua</label>
+                        <input type="text" id="address.street" name="address[street]" value="<%= company.address.street %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="address.number">Número</label>
+                        <input type="text" id="address.number" name="address[number]" value="<%= company.address.number %>">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="address.city">Cidade</label>
+                        <input type="text" id="address.city" name="address[city]" value="<%= company.address.city %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="address.state">Estado</label>
+                        <input type="text" id="address.state" name="address[state]" value="<%= company.address.state %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="address.zipCode">CEP</label>
+                        <input type="text" id="address.zipCode" name="address[zipCode]" value="<%= company.address.zipCode %>">
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+
+    <script>
+        document.getElementById('companyForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+
+            // Processar endereço
+            const address = {};
+            for (const key in data) {
+                if (key.startsWith('address[')) {
+                    const field = key.match(/\[(.*?)\]/)[1];
+                    address[field] = data[key];
+                    delete data[key];
+                }
+            }
+            data.address = address;
+
+            try {
+                const response = await fetch('/companies/profile', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                
+                if (response.ok) {
+                    alert('Perfil atualizado com sucesso!');
+                } else {
+                    alert(result.message || 'Erro ao atualizar perfil');
+                }
+            } catch (error) {
+                console.error(error);
+                alert('Erro ao atualizar perfil');
+            }
+        });
+    </script>
+</body>
+</html> 

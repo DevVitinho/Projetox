@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+
+    <main class="container">
+        <h1><%= title %></h1>
+
+        <form action="/services" method="POST" class="service-form">
+            <div class="form-group">
+                <label for="name">Nome do Serviço</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Descrição</label>
+                <textarea id="description" name="description" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="price">Preço</label>
+                <input type="number" id="price" name="price" step="0.01" required>
+            </div>
+
+            <div class="form-group">
+                <label for="companyId">Empresa</label>
+                <select id="companyId" name="companyId" required>
+                    <option value="">Selecione uma empresa</option>
+                    <% companies.forEach(company => { %>
+                        <option value="<%= company._id %>"><%= company.name %></option>
+                    <% }); %>
+                </select>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Criar Serviço</button>
+                <a href="/services" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </main>
+
+    <%- include('../partials/footer') %>
+</body>
+</html>

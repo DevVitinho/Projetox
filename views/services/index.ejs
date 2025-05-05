@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+
+    <main class="container">
+        <h1>Serviços</h1>
+        
+        <div class="actions">
+            <a href="/services/new" class="btn btn-primary">Novo Serviço</a>
+        </div>
+
+        <div class="services-grid">
+            <% services.forEach(service => { %>
+                <div class="service-card">
+                    <h3><%= service.name %></h3>
+                    <p><%= service.description %></p>
+                    <p class="price">R$ <%= service.price.toFixed(2) %></p>
+                    <p class="company">Empresa: <%= service.companyId.name %></p>
+                </div>
+            <% }); %>
+        </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+</body>
+</html> 
