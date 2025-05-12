@@ -3,6 +3,7 @@ const User = require('../models/User');
 const Company = require('../models/Company');
 const bcrypt = require('bcryptjs');
 
+
 exports.getLogin = (req, res) => {
   res.render('login', {
     title: 'Login',

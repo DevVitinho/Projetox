@@ -1,37 +1,20 @@
-// controllers/service.controller.js
-const Service = require('../models/Service');
+const Service = require('../../models/Service');
 
-exports.getServices = async (req, res) => {
+exports.getAll = async (req, res) => {
   try {
-    const services = await Service.find();
-    res.render('services/list', { services });
+    const services = await Service.find().populate('companyId');
+    res.json(services);
   } catch (err) {
-    console.error(err);
-    res.status(500).send('Erro ao carregar serviços');
+    res.status(500).json({ error: 'Erro ao buscar serviços' });
   }
 };
 
-exports.getServiceForm = (req, res) => {
-  res.render('services/form');
-};
-
-exports.postCreateService = async (req, res) => {
-  const { name, description, category, price, location } = req.body;
-
+exports.getById = async (req, res) => {
   try {
-    const service = new Service({
-      companyId: '667f8c4d3b94cd2e38d8d3aa', // Exemplo - depois virá da sessão
-      name,
-      description,
-      category,
-      price,
-      location
-    });
-
-    await service.save();
-    res.redirect('/services');
+    const service = await Service.findById(req.params.id);
+    if (!service) return res.status(404).json({ error: 'Serviço não encontrado' });
+    res.json(service);
   } catch (err) {
-    console.error(err);
-    res.status(500).send('Erro ao criar serviço');
+    res.status(500).json({ error: 'Erro ao buscar serviço' });
   }
 };

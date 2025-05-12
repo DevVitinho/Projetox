@@ -1,17 +1,13 @@
- // models/Service.js
 const mongoose = require('mongoose');
 
 const ServiceSchema = new mongoose.Schema({
-  companyId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Company',
-    required: true
-  },
-  name: { type: String, required: true },
+  companyId: { type: mongoose.Schema.Types.ObjectId, ref: 'Company' },
+  title: { type: String, required: true },
   description: { type: String, required: true },
-  category: { type: String, required: true },
   price: { type: Number, required: true },
-  location: { type: String }
+  category: { type: String, required: true },
+  location: { type: String },
+  available: { type: Boolean, default: true }
 });
 
-module.exports = mongoose.model('Service', ServiceSchema);
+module.exports = mongoose.models.Service || mongoose.model('Service', ServiceSchema);

@@ -10,6 +10,10 @@ connectDB();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const methodOverride = require('method-override');
+
+// Antes das rotas
+app.use(methodOverride('_method'));
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
@@ -34,5 +38,4 @@ app.use('/company', require('./routes/company.routes'));
 app.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
-
 app.use('/services', require('./routes/service.routes'));
