@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/welcome.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+
+    <main>
+        <div class="welcome-container">
+            <div class="welcome-box">
+                <div class="welcome-form">
+                    <div class="welcome-logo">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="welcome-header">
+                        Bem-vindo ao Serviços+
+                        <div class="welcome-subheader">
+                            Seu marketplace de serviços profissionais
+                        </div>
+                    </div>
+                    
+                    <% if (!user) { %>
+                        <a href="/login" class="welcome-button">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Entrar
+                        </a>
+                        <a href="/register" class="welcome-button secondary">
+                            <i class="fas fa-user-plus"></i>
+                            Cadastrar
+                        </a>
+                    <% } else { %>
+                        <a href="/services" class="welcome-button">
+                            <i class="fas fa-search"></i>
+                            Ver Serviços
+                        </a>
+                        <a href="/profile" class="welcome-button secondary">
+                            <i class="fas fa-user"></i>
+                            Meu Perfil
+                        </a>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <%- include('partials/footer') %>
+</body>
+</html> 

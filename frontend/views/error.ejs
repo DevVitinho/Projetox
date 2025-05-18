@@ -1,0 +1,33 @@
+<%- include('partials/header') %>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h2><i class="fas fa-exclamation-triangle"></i> Erro</h2>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title"><%= message %></h4>
+                    
+                    <% if (process.env.NODE_ENV === 'development' && error) { %>
+                        <div class="alert alert-danger mt-4">
+                            <pre class="mb-0"><%= JSON.stringify(error, null, 2) %></pre>
+                        </div>
+                    <% } %>
+
+                    <div class="mt-4">
+                        <a href="javascript:history.back()" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Voltar
+                        </a>
+                        <a href="/" class="btn btn-primary">
+                            <i class="fas fa-home"></i> Página Inicial
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %> 

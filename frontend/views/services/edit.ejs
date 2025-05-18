@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+
+    <div class="container">
+        <h2 class="section-header mb-4">
+            <i class="fas fa-edit me-2"></i>Editar Serviço
+        </h2>
+        
+        <div class="card shadow-custom">
+            <div class="card-body">
+                <form action="/services/edit/<%= service._id %>" method="POST" enctype="multipart/form-data" id="editForm">
+                    <input type="hidden" name="_method" value="PUT">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="name" class="form-label">Nome do Serviço</label>
+                            <input type="text" class="form-control" id="name" name="name" value="<%= service.name %>" required>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label for="category" class="form-label">Categoria</label>
+                            <select class="form-select" id="category" name="category" required>
+                                <option value="">Selecione uma categoria</option>
+                                <option value="limpeza" <%= service.category === 'limpeza' ? 'selected' : '' %>>Limpeza</option>
+                                <option value="reforma" <%= service.category === 'reforma' ? 'selected' : '' %>>Reforma</option>
+                                <option value="manutenção" <%= service.category === 'manutenção' ? 'selected' : '' %>>Manutenção</option>
+                                <option value="tecnologia" <%= service.category === 'tecnologia' ? 'selected' : '' %>>Tecnologia</option>
+                                <option value="saúde" <%= service.category === 'saúde' ? 'selected' : '' %>>Saúde</option>
+                                <option value="educação" <%= service.category === 'educação' ? 'selected' : '' %>>Educação</option>
+                                <option value="outros" <%= service.category === 'outros' ? 'selected' : '' %>>Outros</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-12">
+                            <label for="description" class="form-label">Descrição</label>
+                            <textarea class="form-control" id="description" name="description" rows="4" required><%= service.description %></textarea>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="serviceImage" class="form-label">Foto do Serviço</label>
+                            <input type="file" class="form-control" id="serviceImage" name="serviceImage" accept="image/*">
+                            <div class="form-text text-secondary mt-1">
+                                <small>Formatos: JPG, PNG, GIF (máx. 5 MB)</small>
+                            </div>
+                            <% if (service.imageUrl) { %>
+                                <div class="mt-2">
+                                    <img src="<%= service.imageUrl %>" alt="Imagem atual" class="img-thumbnail" style="max-height: 100px;">
+                                    <p class="form-text text-secondary">Imagem atual</p>
+                                </div>
+                            <% } %>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label for="price" class="form-label">Preço (R$)</label>
+                            <div class="input-group">
+                                <span class="input-group-text">R$</span>
+                                <input type="number" class="form-control" id="price" name="price" step="0.01" value="<%= service.price %>" required>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label for="location" class="form-label">Localização</label>
+                            <input type="text" class="form-control" id="location" name="location" placeholder="Cidade, Estado" value="<%= service.location || '' %>">
+                        </div>
+                        
+                        <div class="col-12 mt-4">
+                            <div class="d-flex justify-content-end gap-2">
+                                <a href="/services/<%= service._id %>" class="btn btn-secondary">
+                                    <i class="fas fa-times me-1"></i> Cancelar
+                                </a>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save me-1"></i> Salvar Alterações
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.getElementById('editForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = new FormData(e.target);
+        formData.append('_method', 'PUT');
+
+        try {
+            const response = await fetch(e.target.action, {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: formData
+            });
+
+            if (response.ok) {
+                window.location.href = '/services/<%= service._id %>';
+            } else {
+                const data = await response.json();
+                alert(data.message || 'Erro ao atualizar serviço');
+            }
+        } catch (error) {
+            console.error(error);
+            alert('Erro ao atualizar serviço');
+        }
+    });
+    </script>
+
+    <%- include('../partials/footer') %>
+</body>
+</html> 

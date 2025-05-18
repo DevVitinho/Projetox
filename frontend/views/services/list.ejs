@@ -1,0 +1,142 @@
+<%- include('../partials/header') %>
+
+<div class="container">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="section-header">Serviços Oferecidos</h2>
+    <a href="/services/new" class="btn btn-primary">
+      <i class="fas fa-plus-circle me-1"></i> Adicionar Serviço
+    </a>
+  </div>
+
+  <% if (services && services.length > 0) { %>
+    <div class="row row-cols-1 row-cols-md-3 g-4 mb-4">
+      <% services.forEach(service => { %>
+        <div class="col">
+          <div class="card h-100 shadow-custom">
+            <% if (service.imageUrl) { %>
+              <div class="card-img-container" style="height: 200px; overflow: hidden;">
+                <img src="<%= service.imageUrl %>" class="card-img-top" alt="<%= service.name %>" style="object-fit: cover; height: 100%; width: 100%;">
+              </div>
+            <% } else { %>
+              <div class="card-img-top bg-secondary bg-opacity-25 d-flex align-items-center justify-content-center" style="height: 200px;">
+                <i class="fas fa-image fa-3x text-secondary"></i>
+              </div>
+            <% } %>
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <h5 class="card-title"><%= service.name %></h5>
+                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal<%= service._id %>">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+              <span class="badge bg-primary mb-2"><%= service.category %></span>
+              <p class="card-text"><%= service.description.substring(0, 100) %><%= service.description.length > 100 ? '...' : '' %></p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <i class="fas fa-money-bill-wave text-success"></i>
+                  <strong class="ms-1">R$ <%= service.price.toFixed(2) %></strong>
+                </div>
+                <div>
+                  <i class="fas fa-map-marker-alt text-danger"></i>
+                  <span class="ms-1"><%= service.location || 'Não informado' %></span>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="btn-group w-100">
+                <a href="/services/<%= service._id %>" class="btn btn-sm btn-outline-primary">
+                  <i class="fas fa-eye me-1"></i> Detalhes
+                </a>
+                <a href="/services/<%= service._id %>/edit" class="btn btn-sm btn-outline-secondary">
+                  <i class="fas fa-edit me-1"></i> Editar
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Modal de confirmação de exclusão -->
+          <div class="modal fade" id="deleteModal<%= service._id %>" tabindex="-1" aria-labelledby="deleteModalLabel<%= service._id %>" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content bg-dark">
+                <div class="modal-header border-bottom border-secondary">
+                  <h5 class="modal-title" id="deleteModalLabel<%= service._id %>">Confirmar exclusão</h5>
+                  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                  <p>Tem certeza que deseja excluir o serviço <strong><%= service.name %></strong>?</p>
+                  <p class="text-danger"><i class="fas fa-exclamation-triangle me-2"></i>Esta ação não pode ser desfeita.</p>
+                </div>
+                <div class="modal-footer border-top border-secondary">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                  <button type="button" class="btn btn-danger delete-service" data-service-id="<%= service._id %>">
+                    <i class="fas fa-trash me-1"></i> Excluir
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  <% } else { %>
+    <div class="alert alert-info">
+      <i class="fas fa-info-circle me-2"></i> Nenhum serviço cadastrado ainda. Clique em "Adicionar Serviço" para começar.
+    </div>
+  <% } %>
+</div>
+
+<!-- Script para exclusão com AJAX -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Selecionar todos os botões de exclusão
+    const deleteButtons = document.querySelectorAll('.delete-service');
+    
+    deleteButtons.forEach(button => {
+      button.addEventListener('click', async function() {
+        const serviceId = this.getAttribute('data-service-id');
+        const modalElement = this.closest('.modal');
+        const modal = bootstrap.Modal.getInstance(modalElement);
+        
+        // Mostrar o loader
+        showLoader();
+        
+        try {
+          // Enviar solicitação de exclusão
+          const response = await fetch(`/services/${serviceId}`, {
+            method: 'DELETE',
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest'
+            }
+          });
+          
+          const data = await response.json();
+          
+          if (data.success) {
+            // Fechar o modal
+            modal.hide();
+            
+            // Remover o card do serviço da página
+            const serviceCard = document.querySelector(`.col:has([data-bs-target="#deleteModal${serviceId}"])`);
+            serviceCard.remove();
+            
+            // Se não houver mais serviços, mostrar a mensagem de nenhum serviço
+            const servicesContainer = document.querySelector('.row.row-cols-1');
+            if (servicesContainer && servicesContainer.children.length === 0) {
+              location.reload(); // Recarregar para mostrar a mensagem
+            }
+          } else {
+            alert('Erro ao excluir serviço: ' + (data.message || 'Erro desconhecido'));
+          }
+        } catch (error) {
+          console.error('Erro:', error);
+          alert('Erro ao processar a solicitação.');
+        } finally {
+          // Esconder o loader independente do resultado
+          hideLoader();
+        }
+      });
+    });
+  });
+</script>
+
+<%- include('../partials/footer') %>

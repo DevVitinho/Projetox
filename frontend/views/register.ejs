@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - ProjetoX</title>
+</head>
+<body>
+    <%- include('partials/header') %>
+
+    <main class="container">
+        <div class="form-container" style="width: 500px;">
+            <h2>Cadastro</h2>
+            
+            <form id="registerForm" class="form">
+                <div class="form-group">
+                    <label>Tipo de Cadastro</label>
+                    <div class="user-type-container">
+                        <div class="user-type-pane">
+                            <label class="user-type-label">
+                                <span>Usuário</span>
+                                <input class="user-type-input" type="radio" name="userType" id="userTypeUser" value="user" checked>
+                            </label>
+                            <label class="user-type-label">
+                                <span>Empresa</span>
+                                <input class="user-type-input" type="radio" name="userType" id="userTypeCompany" value="company">
+                            </label>
+                            <span class="user-type-selection"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="name">Nome</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <!-- Campos específicos para empresa -->
+                <div id="companyFields" style="display: none;">
+                    <div class="form-group">
+                        <label for="cnpj">CNPJ</label>
+                        <input type="text" id="cnpj" name="cnpj">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Telefone</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Endereço</label>
+                        <input type="text" name="address[street]" placeholder="Rua" style="margin-bottom: 8px;">
+                        <input type="text" name="address[number]" placeholder="Número" style="margin-bottom: 8px;">
+                        <input type="text" name="address[city]" placeholder="Cidade" style="margin-bottom: 8px;">
+                        <input type="text" name="address[state]" placeholder="Estado" style="margin-bottom: 8px;">
+                        <input type="text" name="address[zipCode]" placeholder="CEP">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirmar Senha</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                </div>
+
+                <div class="form-actions" style="display: flex; gap: 10px;">
+                    <button type="submit" class="form-submit-btn">Cadastrar</button>
+                    <a href="/auth/login" class="form-submit-btn btn-secondary">Já tenho uma conta</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const companyFields = document.getElementById('companyFields');
+        const userTypeRadios = document.getElementsByName('userType');
+        const cnpjInput = document.getElementById('cnpj');
+
+        // Função para mostrar/ocultar campos de empresa
+        function toggleCompanyFields() {
+            const isCompany = document.getElementById('userTypeCompany').checked;
+            companyFields.style.display = isCompany ? 'block' : 'none';
+            cnpjInput.required = isCompany;
+        }
+
+        // Adicionar listener para os radio buttons
+        userTypeRadios.forEach(radio => {
+            radio.addEventListener('change', toggleCompanyFields);
+        });
+
+        // Configurar validação e submissão do formulário
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const isCompany = document.getElementById('userTypeCompany').checked;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (isCompany && !cnpjInput.value) {
+                alert('CNPJ é obrigatório para empresas');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                alert('As senhas não coincidem');
+                return;
+            }
+
+            // Mostrar loader
+            showLoader();
+            
+            try {
+                const formData = new FormData(this);
+                const response = await fetch('/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(Object.fromEntries(formData))
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    window.location.href = '/login'; // Redirecionar para a página de login em caso de sucesso
+                } else {
+                    alert(data.message || 'Erro ao realizar cadastro');
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('Erro ao processar o cadastro');
+            } finally {
+                hideLoader();
+            }
+        });
+
+        // Inicializar estado dos campos
+        toggleCompanyFields();
+    });
+    </script>
+
+    <%- include('partials/footer') %>
+</body>
+</html> 

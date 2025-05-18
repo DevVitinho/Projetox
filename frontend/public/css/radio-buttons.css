@@ -1,0 +1,73 @@
+.user-type-container {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  margin: 10px 0;
+}
+
+.user-type-pane {
+  outline: 2px solid #4b9cd3;
+  box-shadow: 0 0 10px rgba(75, 156, 211, 0.47), inset 0 0 10px rgba(75, 156, 211, 0.47);
+  height: 1cm;
+  width: 6cm;
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+  transition: 0.7s ease;
+}
+
+.user-type-input {
+  display: none;
+}
+
+.user-type-label {
+  height: 1cm;
+  width: 3cm;
+  float: left;
+  font-weight: 600;
+  letter-spacing: -1px;
+  font-size: 14px;
+  padding: 0px;
+  position: relative;
+  z-index: 1;
+  color: #4b9cd3;
+  text-align: center;
+  padding-top: 10px;
+  cursor: pointer;
+}
+
+.user-type-selection {
+  display: none;
+  position: absolute;
+  height: 1cm;
+  width: 3cm;
+  z-index: 0;
+  left: 0;
+  top: 0;
+  box-shadow: 0 0 10px rgba(75, 156, 211, 0.47);
+  transition: .15s ease;
+}
+
+.user-type-label:has(input:checked) {
+  color: #212121;
+}
+
+.user-type-pane:has(.user-type-label:nth-child(1):hover) {
+  transform: rotateY(-20deg);
+}
+
+.user-type-pane:has(.user-type-label:nth-child(2):hover) {
+  transform: rotateY(20deg);
+}
+
+.user-type-label:has(input:checked) ~ .user-type-selection {
+  background-color: #4b9cd3;
+  display: inline-block;
+}
+
+.user-type-label:nth-child(1):has(input:checked) ~ .user-type-selection {
+  transform: translateX(0);
+}
+
+.user-type-label:nth-child(2):has(input:checked) ~ .user-type-selection {
+  transform: translateX(3cm);
+} 
