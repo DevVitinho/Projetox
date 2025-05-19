@@ -1,0 +1,121 @@
+.alert-container {
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    width: 300px;
+    font-size: 14px;
+}
+
+.alert-box {
+    cursor: default;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 60px;
+    border-radius: 8px;
+    background-color: #232531;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.alert-content {
+    display: flex;
+    gap: 10px;
+}
+
+.alert-icon {
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    padding: 8px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.alert-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.alert-text {
+    flex: 1;
+}
+
+.alert-title {
+    color: white;
+    font-weight: 500;
+    margin: 0;
+}
+
+.alert-description {
+    color: #9ca3af;
+    margin: 0;
+}
+
+.alert-close {
+    background: none;
+    border: none;
+    color: #6b7280;
+    padding: 4px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.alert-close:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.alert-close svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Cores dos ícones para diferentes tipos de alerta */
+.alert-icon.error {
+    color: #dc2626;
+}
+
+.alert-icon.success {
+    color: #22c55e;
+}
+
+.alert-icon.warning {
+    color: #f59e0b;
+}
+
+/* Animações */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+.alert-box {
+    animation: slideIn 0.3s ease-out;
+}
+
+.alert-box.hiding {
+    animation: slideOut 0.3s ease-in forwards;
+} 

@@ -16,4 +16,9 @@ CompanySchema.pre('save', async function (next) {
     next();
 });
 
+// Método para comparar senha
+CompanySchema.methods.comparePassword = async function(candidatePassword) {
+    return bcrypt.compare(candidatePassword, this.password);
+};
+
 module.exports = mongoose.models.Company || mongoose.model('Company', CompanySchema);

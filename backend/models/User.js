@@ -14,4 +14,9 @@ UserSchema.pre('save', async function (next) {
     next();
 });
 
+// Método para comparar senha
+UserSchema.methods.comparePassword = async function(candidatePassword) {
+    return bcrypt.compare(candidatePassword, this.password);
+};
+
 module.exports = mongoose.models.User || mongoose.model('User', UserSchema);

@@ -8,6 +8,7 @@
 </head>
 <body>
     <%- include('../partials/header') %>
+    <%- include('../partials/alert') %>
 
     <div class="container mt-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -73,22 +74,21 @@
         if (confirm('Tem certeza que deseja excluir este serviço?')) {
             try {
                 const response = await fetch(`/services/${serviceId}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'Content-Type': 'application/json'
-                    }
+                    method: 'DELETE'
                 });
-
+                
                 if (response.ok) {
-                    window.location.reload();
+                    showAlert('Sucesso!', 'Serviço excluído com sucesso', 'success');
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
                 } else {
                     const data = await response.json();
-                    alert(data.message || 'Erro ao excluir serviço');
+                    showAlert('Erro na Exclusão', data.message || 'Erro ao excluir serviço', 'error');
                 }
             } catch (error) {
                 console.error(error);
-                alert('Erro ao excluir serviço');
+                showAlert('Erro no Sistema', 'Erro ao excluir serviço', 'error');
             }
         }
     }

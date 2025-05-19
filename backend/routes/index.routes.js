@@ -13,5 +13,3 @@ router.post('/register', authController.postRegister);
 router.get('/logout', authController.logout);
 
 module.exports = router;
-
-app.use('/api', require('./routes/api/index.routes'));

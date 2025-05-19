@@ -56,7 +56,7 @@ exports.postCreateService = async (req, res) => {
             return res.status(403).json({ message: 'Apenas empresas podem cadastrar serviços' });
         }
 
-        const { name, description, category, price, location } = req.body;
+        const { title, description, category, price, location } = req.body;
 
         // Verificar se a empresa existe
         const company = await Company.findById(req.session.user.id);
@@ -71,7 +71,7 @@ exports.postCreateService = async (req, res) => {
         // Criar o serviço
         const service = new Service({
             companyId: company._id,
-            name,
+            title,
             description,
             category,
             price: parseFloat(price),

@@ -1,7 +1,9 @@
 <% include partials/header %>
+<%- include('../partials/alert') %>
+
 <div class="container mt-5">
-  <h2>Cadastro - <%= userType === 'user' ? 'Usuário' : 'Empresa' %></h2>
-  <form method="POST" action="/user/register">
+  <h2>Cadastro - <%= userType === 'user' ? 'Buscando Serviço' : 'Empresa' %></h2>
+  <form method="POST" action="/user/register" id="registerPartialForm">
     <input type="hidden" name="userType" value="<%= userType %>">
     <div class="mb-3">
       <label>Email</label>
@@ -14,4 +16,36 @@
     <button type="submit" class="btn btn-success">Registrar</button>
   </form>
 </div>
+
+<script>
+document.getElementById('registerPartialForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    try {
+        const formData = new FormData(this);
+        const response = await fetch(this.action, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(Object.fromEntries(formData))
+        });
+
+        const data = await response.json();
+        
+        if (response.ok) {
+            showAlert('Sucesso!', 'Cadastro realizado com sucesso', 'success');
+            setTimeout(() => {
+                window.location.href = '/login';
+            }, 2000);
+        } else {
+            showAlert('Erro no Cadastro', data.message || 'Erro ao realizar cadastro', 'error');
+        }
+    } catch (error) {
+        console.error('Erro:', error);
+        showAlert('Erro no Sistema', 'Erro ao processar o cadastro', 'error');
+    }
+});
+</script>
+
 <% include partials/footer %>

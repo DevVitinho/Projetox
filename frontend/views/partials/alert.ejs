@@ -1,0 +1,60 @@
+<!-- Componente de Alerta -->
+<link rel="stylesheet" href="/css/alert.css">
+<div id="alertContainer" class="alert-container">
+  <div class="alert-box">
+    <div class="alert-content">
+      <div class="alert-icon error">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+        </svg>
+      </div>
+      <div class="alert-text">
+        <p class="alert-title" id="alertTitle"></p>
+        <p class="alert-description" id="alertDescription"></p>
+      </div>
+    </div>
+    <button class="alert-close" onclick="hideAlert()">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18 18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+function showAlert(title, description, type = 'error') {
+    const alertContainer = document.getElementById('alertContainer');
+    const alertTitle = document.getElementById('alertTitle');
+    const alertDescription = document.getElementById('alertDescription');
+    const iconDiv = alertContainer.querySelector('.alert-icon');
+    
+    alertTitle.textContent = title;
+    alertDescription.textContent = description;
+    
+    // Remover classes anteriores de tipo
+    iconDiv.classList.remove('error', 'success', 'warning');
+    
+    // Adicionar classe do tipo atual
+    iconDiv.classList.add(type);
+
+    // Mostrar o alerta
+    alertContainer.style.display = 'block';
+    
+    // Auto-esconder após 5 segundos
+    setTimeout(hideAlert, 5000);
+}
+
+function hideAlert() {
+    const alertContainer = document.getElementById('alertContainer');
+    const alertBox = alertContainer.querySelector('.alert-box');
+    
+    // Adicionar classe de animação de saída
+    alertBox.classList.add('hiding');
+    
+    // Esperar a animação terminar antes de esconder
+    setTimeout(() => {
+        alertContainer.style.display = 'none';
+        alertBox.classList.remove('hiding');
+    }, 300);
+}
+</script> 

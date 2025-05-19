@@ -7,6 +7,7 @@
 </head>
 <body>
     <%- include('partials/header') %>
+    <%- include('partials/alert') %>
 
     <main class="container">
         <div class="form-container" style="width: 500px;">
@@ -18,7 +19,7 @@
                     <div class="user-type-container">
                         <div class="user-type-pane">
                             <label class="user-type-label">
-                                <span>Usuário</span>
+                                <span>Buscando Serviço</span>
                                 <input class="user-type-input" type="radio" name="userType" id="userTypeUser" value="user" checked>
                             </label>
                             <label class="user-type-label">
@@ -85,6 +86,7 @@
         const companyFields = document.getElementById('companyFields');
         const userTypeRadios = document.getElementsByName('userType');
         const cnpjInput = document.getElementById('cnpj');
+        const form = document.getElementById('registerForm');
 
         // Função para mostrar/ocultar campos de empresa
         function toggleCompanyFields() {
@@ -99,7 +101,7 @@
         });
 
         // Configurar validação e submissão do formulário
-        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+        form.addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const isCompany = document.getElementById('userTypeCompany').checked;
@@ -107,12 +109,14 @@
             const confirmPassword = document.getElementById('confirmPassword').value;
             
             if (isCompany && !cnpjInput.value) {
-                alert('CNPJ é obrigatório para empresas');
+                showAlert('CNPJ Obrigatório', 'Por favor, preencha o CNPJ da empresa', 'warning');
+                cnpjInput.focus();
                 return;
             }
 
             if (password !== confirmPassword) {
-                alert('As senhas não coincidem');
+                showAlert('Senhas Diferentes', 'As senhas digitadas não coincidem', 'error');
+                document.getElementById('confirmPassword').focus();
                 return;
             }
 
@@ -121,24 +125,41 @@
             
             try {
                 const formData = new FormData(this);
+                const data = Object.fromEntries(formData);
+
+                // Remover campos vazios do endereço para empresa
+                if (isCompany) {
+                    const address = {};
+                    ['street', 'number', 'city', 'state', 'zipCode'].forEach(field => {
+                        const value = formData.get(`address[${field}]`);
+                        if (value) address[field] = value;
+                    });
+                    if (Object.keys(address).length > 0) {
+                        data.address = address;
+                    }
+                }
+
                 const response = await fetch('/register', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(Object.fromEntries(formData))
+                    body: JSON.stringify(data)
                 });
 
-                const data = await response.json();
+                const responseData = await response.json();
                 
                 if (response.ok) {
-                    window.location.href = '/login'; // Redirecionar para a página de login em caso de sucesso
+                    showAlert('Sucesso!', 'Cadastro realizado com sucesso', 'success');
+                    setTimeout(() => {
+                        window.location.href = '/auth/login';
+                    }, 2000);
                 } else {
-                    alert(data.message || 'Erro ao realizar cadastro');
+                    showAlert('Erro no Cadastro', responseData.message || 'Erro ao realizar cadastro', 'error');
                 }
             } catch (error) {
                 console.error('Erro:', error);
-                alert('Erro ao processar o cadastro');
+                showAlert('Erro no Sistema', 'Erro ao processar o cadastro', 'error');
             } finally {
                 hideLoader();
             }

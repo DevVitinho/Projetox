@@ -8,6 +8,7 @@
 </head>
 <body>
     <%- include('../partials/header') %>
+    <%- include('../partials/alert') %>
 
     <main class="container">
         <h1>Perfil da Empresa</h1>
@@ -100,13 +101,16 @@
                 const result = await response.json();
                 
                 if (response.ok) {
-                    alert('Perfil atualizado com sucesso!');
+                    showAlert('Sucesso!', 'Perfil atualizado com sucesso', 'success');
+                    setTimeout(() => {
+                        window.location.href = result.redirect || '/';
+                    }, 2000);
                 } else {
-                    alert(result.message || 'Erro ao atualizar perfil');
+                    showAlert('Erro na Atualização', result.message || 'Erro ao atualizar perfil', 'error');
                 }
             } catch (error) {
                 console.error(error);
-                alert('Erro ao atualizar perfil');
+                showAlert('Erro no Sistema', 'Erro ao atualizar perfil', 'error');
             }
         });
     </script>

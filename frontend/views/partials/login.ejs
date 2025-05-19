@@ -1,7 +1,9 @@
 <% include partials/header %>
+<%- include('../partials/alert') %>
+
 <div class="container mt-5">
-  <h2>Login - <%= userType === 'user' ? 'Usuário' : 'Empresa' %></h2>
-  <form method="POST" action="/user/login">
+  <h2>Login - <%= userType === 'user' ? 'Buscando Serviço' : 'Empresa' %></h2>
+  <form method="POST" action="/user/login" id="loginPartialForm">
     <input type="hidden" name="userType" value="<%= userType %>">
     <div class="mb-3">
       <label>Email</label>
@@ -15,4 +17,36 @@
   </form>
   <p>Já tem conta? <a href="/user/register?type=<%= userType %>">Cadastre-se</a></p>
 </div>
+
+<script>
+document.getElementById('loginPartialForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    try {
+        const formData = new FormData(this);
+        const response = await fetch(this.action, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(Object.fromEntries(formData))
+        });
+
+        const data = await response.json();
+        
+        if (response.ok) {
+            showAlert('Sucesso!', 'Login realizado com sucesso', 'success');
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 2000);
+        } else {
+            showAlert('Erro no Login', data.message || 'Erro ao fazer login', 'error');
+        }
+    } catch (error) {
+        console.error('Erro:', error);
+        showAlert('Erro no Sistema', 'Erro ao processar o login', 'error');
+    }
+});
+</script>
+
 <% include partials/footer %>
