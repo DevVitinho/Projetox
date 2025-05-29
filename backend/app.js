@@ -45,6 +45,7 @@ app.use('/user', require('./routes/user.routes'));
 app.use('/company', require('./routes/company.routes'));
 app.use('/services', require('./routes/service.routes'));
 app.use('/profile', require('./routes/profile.routes'));
+app.use('/api', require('./routes/api/index.routes'));
 
 // Error handler
 app.use((err, req, res, next) => {
