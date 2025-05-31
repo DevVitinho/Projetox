@@ -5,46 +5,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
     <link rel="stylesheet" href="/css/welcome.css">
+    <link rel="stylesheet" href="/css/home.css">
 </head>
 <body>
     <%- include('partials/header') %>
 
     <main>
-        <div class="welcome-container">
-            <div class="welcome-box">
-                <div class="welcome-form">
-                    <div class="welcome-logo">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <div class="welcome-header">
-                        Bem-vindo ao Serviços+
-                        <div class="welcome-subheader">
-                            Seu marketplace de serviços profissionais
-                        </div>
-                    </div>
-                    
-                    <% if (!user) { %>
-                        <a href="/login" class="welcome-button">
-                            <i class="fas fa-sign-in-alt"></i>
-                            Entrar
-                        </a>
-                        <a href="/register" class="welcome-button secondary">
-                            <i class="fas fa-user-plus"></i>
-                            Cadastrar
-                        </a>
-                    <% } else { %>
-                        <a href="/services" class="welcome-button">
-                            <i class="fas fa-search"></i>
-                            Ver Serviços
-                        </a>
-                        <a href="/profile" class="welcome-button secondary">
-                            <i class="fas fa-user"></i>
-                            Meu Perfil
-                        </a>
-                    <% } %>
+        <!-- HERO SECTION -->
+        <section class="hero-section">
+            <!-- <div class="hero-bg"></div> Removido o fundo -->
+              <div class="form-container">
+                <form class="form">
+                  <h2 class="form-title">Bem-vindo ao Serviços+</h2>
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required="">
+                  </div>
+                  <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" name="password" required="">
+                  </div>
+                  <div class="form-group">
+                    <label for="userType">Tipo de Usuário</label>
+                    <select id="userType" name="userType" required>
+                      <option value="user">Buscando Serviço</option>
+                      <option value="company">Oferecendo Serviço</option>
+                    </select>
+                  </div>
+                  <button class="form-submit-btn" type="submit">Entrar</button>
+                  <p class="register-link">Não tem conta? <a href="/register">Cadastre-se</a></p>
+                </form>
+              </div>
+            </div>
+        </section>
+
+        <!-- CATEGORIAS POPULARES -->
+        <section class="categories container">
+            <h2>Categorias populares</h2>
+            <div class="categories-list">
+                <div class="category-card">
+                    <span class="icon"><i class="fas fa-bolt"></i></span>
+                    <span>Eletricista</span>
+                </div>
+                <div class="category-card">
+                    <span class="icon"><i class="fas fa-wrench"></i></span>
+                    <span>Encanador</span>
+                </div>
+                <div class="category-card">
+                    <span class="icon"><i class="fas fa-pencil-ruler"></i></span>
+                    <span>Designer</span>
+                </div>
+                <div class="category-card">
+                    <span class="icon"><i class="fas fa-car"></i></span>
+                    <span>Mecânico</span>
                 </div>
             </div>
-        </div>
+        </section>
+
+        <!-- BENEFÍCIOS -->
+        <section class="benefits container">
+            <h2>Por que usar o Serviços+?</h2>
+            <ul>
+                <li><i class="fas fa-check"></i> Profissionais verificados</li>
+                <li><i class="fas fa-check"></i> Pagamento seguro</li>
+                <li><i class="fas fa-check"></i> Suporte 24h</li>
+            </ul>
+        </section>
+
+        <!-- DEPOIMENTOS -->
+        <section class="testimonials container">
+            <h2>O que dizem nossos usuários</h2>
+            <div class="testimonial-cards">
+                <div class="testimonial-card">
+                    <img src="/uploads/images/user01.jpg" alt="Usuário 1">
+                    <p class="comment">"Encontrei um ótimo eletricista em menos de 5 minutos. Super recomendo!"</p>
+                    <span class="user-name">Usuário 1</span>
+                </div>
+                <div class="testimonial-card">
+                    <img src="/uploads/images/user02.jpg" alt="Usuário 2">
+                    <p class="comment">"Fácil de usar, profissionais qualificados e atendimento excelente."</p>
+                    <span class="user-name">Usuário 2</span>
+                </div>
+                <div class="testimonial-card">
+                    <img src="/uploads/images/user03.jpg" alt="Usuário 3">
+                    <p class="comment">"Minha família adorou o serviço!"</p>
+                    <span class="user-name">Usuário 3</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- FORMULÁRIO DE CONTATO -->
+        
     </main>
 
     <%- include('partials/footer') %>
