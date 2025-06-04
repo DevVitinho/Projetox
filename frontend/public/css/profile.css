@@ -1,0 +1,81 @@
+/* Estilos específicos para a página de Perfil */
+
+.profile-card {
+    max-width: 600px; /* Largura máxima do card */
+    margin: 20px auto; /* Centralizar e adicionar margem */
+    background-color: var(--bg-card);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+}
+
+.profile-img {
+    width: 120px; /* Tamanho da imagem de perfil */
+    height: 120px;
+    object-fit: cover;
+    border: 3px solid var(--accent-blue); /* Borda na imagem */
+}
+
+.profile-name {
+    color: var(--text-primary);
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.profile-rating i {
+    color: var(--accent-yellow); /* Cor das estrelas */
+    font-size: 1.2rem;
+}
+
+.profile-progress small {
+    display: block;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.profile-progress .progress {
+    height: 8px; /* Altura da barra de progresso */
+}
+
+.profile-progress .progress-bar {
+    background-color: var(--accent-blue); /* Cor da barra de progresso */
+}
+
+/* Ajustes para o formulário dentro do card */
+.profile-card .form-label {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.profile-card .form-control, .profile-card textarea {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.profile-card .form-control:focus, .profile-card textarea:focus {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 0.25rem rgba(75, 156, 211, 0.25);
+}
+
+.profile-card .btn-primary, .profile-card .btn-outline-secondary {
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.profile-card .btn-primary {
+    background-color: var(--button-primary);
+    border-color: var(--button-primary);
+}
+
+.profile-card .btn-outline-secondary {
+    color: var(--text-secondary);
+    border-color: var(--text-secondary);
+    background-color: transparent;
+}
+
+.profile-card .btn-outline-secondary:hover {
+    background-color: rgba(176, 176, 176, 0.1);
+} 

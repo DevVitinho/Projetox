@@ -13,23 +13,32 @@ exports.getLogin = (req, res) => {
 
 exports.postLogin = async (req, res) => {
   try {
+    console.log('Tentativa de login recebida.');
     const { email, password, userType } = req.body;
+    console.log(`Email: ${email}, Tipo de Usuário: ${userType}`);
     
     // Escolher o modelo correto baseado no tipo de usuário
     const Model = userType === 'user' ? User : Company;
+    console.log(`Modelo usado: ${Model.modelName}`);
     
     // Buscar usuário
     const user = await Model.findOne({ email });
+    console.log('Buscou usuário:', user);
     if (!user) {
+      console.log('Usuário não encontrado.');
       return res.status(400).json({ message: 'Usuário não encontrado' });
     }
 
+    console.log('Usuário encontrado. Comparando senha...');
     // Verificar senha
     const isMatch = await user.comparePassword(password);
+    console.log(`Senha corresponde: ${isMatch}`);
     if (!isMatch) {
+      console.log('Senha incorreta.');
       return res.status(400).json({ message: 'Senha incorreta' });
     }
 
+    console.log('Senha correta. Criando sessão...');
     // Criar sessão
     req.session.user = {
       id: user._id,
@@ -37,10 +46,12 @@ exports.postLogin = async (req, res) => {
       email: user.email,
       type: userType
     };
+    console.log('Sessão criada.');
 
+    console.log('Login bem-sucedido. Redirecionando para /.');
     res.redirect('/');
   } catch (error) {
-    console.error(error);
+    console.error('Erro no bloco catch de postLogin:', error);
     res.status(500).json({ message: 'Erro ao realizar login' });
   }
 };
@@ -56,6 +67,17 @@ exports.postRegister = async (req, res) => {
   try {
     const { name, email, password, confirmPassword, userType, cnpj, phone } = req.body;
     
+    // Validar campos obrigatórios
+    if (!name) {
+      return res.status(400).json({ message: 'Nome é obrigatório' });
+    }
+    if (!email) {
+      return res.status(400).json({ message: 'Email é obrigatório' });
+    }
+    if (!password) {
+      return res.status(400).json({ message: 'Senha é obrigatória' });
+    }
+
     // Verificar se as senhas coincidem
     if (password !== confirmPassword) {
       return res.status(400).json({ message: 'As senhas não coincidem' });
@@ -108,15 +130,16 @@ exports.postRegister = async (req, res) => {
     const user = new Model(userData);
     await user.save();
 
-    // Criar sessão após registro
-    req.session.user = {
-      id: user._id,
-      name: user.name,
-      email: user.email,
-      type: userType
-    };
+    // Criar sessão após registro (opcional, dependendo do fluxo)
+    // req.session.user = {
+    //   id: user._id,
+    //   name: user.name,
+    //   email: user.email,
+    //   type: userType
+    // };
 
-    res.redirect('/');
+    // Em vez de redirecionar, retornar sucesso JSON
+    res.status(201).json({ message: 'Cadastro realizado com sucesso' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Erro ao criar usuário' });

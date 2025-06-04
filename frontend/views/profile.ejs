@@ -6,27 +6,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= title %></title>
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/profile.css">
 </head>
 
 <body>
   <%- include('partials/header') %>
 
   <div class="container mt-5">
-    <div class="row">
-      <div class="col-md-8 offset-md-2">
-        <div class="card">
-          <div class="card-header">
-            <h2>Meu Perfil</h2>
-          </div>
-          <div class="card-body">
-            <form id="profileForm">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card profile-card">
+          <div class="card-body text-center">
+            <!-- Área da Imagem de Perfil -->
+            <img src="<%= profile.imageUrl || '/images/default-avatar.png' %>" alt="Imagem de Perfil" class="profile-img rounded-circle mb-3">
+
+            <!-- Nome do Usuário/Empresa -->
+            <h2 class="profile-name mb-2"><%= profile.name %></h2>
+
+            <!-- Sistema de Patente (Visual - Ouro) -->
+            <span class="badge bg-warning text-dark mb-3"><i class="fas fa-medal me-1"></i> Ouro</span>
+
+            <!-- Sistema de Avaliação (Visual - Estrelas) -->
+            <div class="profile-rating mb-2">
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star-half-alt text-warning"></i>
+                <span class="ms-2">73 de 5</span> <!-- Exemplo estático -->
+            </div>
+
+            <!-- Progresso para a Próxima Patente (Visual) -->
+            <div class="profile-progress mb-4">
+                <small class="text-secondary">73/100 pontos até Platina</small> <!-- Exemplo estático -->
+                 <div class="progress mt-1" style="height: 5px;">
+                    <div class="progress-bar bg-primary" role="progressbar" style="width: 73%;" aria-valuenow="73" aria-valuemin="0" aria-valuemax="100"></div>
+                 </div>
+            </div>
+
+            <!-- Formulário de Edição -->
+            <form id="profileForm" class="text-start">
               <div class="mb-3">
                 <label for="name" class="form-label">Nome</label>
                 <input type="text" class="form-control" id="name" name="name" value="<%= profile.name %>" required>
               </div>
 
               <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
+                <label for="email" class="form-label">E-mail</label>
                 <input type="email" class="form-control" id="email" name="email" value="<%= profile.email %>" required>
               </div>
 
@@ -36,17 +62,29 @@
               </div>
 
               <% if (user.type === 'company') { %>
-              <div class="mb-3">
-                <label class="form-label">Endereço</label>
-                <input type="text" class="form-control mb-2" name="address[street]" placeholder="Rua" value="<%= profile.address?.street || '' %>">
-                <input type="text" class="form-control mb-2" name="address[number]" placeholder="Número" value="<%= profile.address?.number || '' %>">
-                <input type="text" class="form-control mb-2" name="address[city]" placeholder="Cidade" value="<%= profile.address?.city || '' %>">
-                <input type="text" class="form-control mb-2" name="address[state]" placeholder="Estado" value="<%= profile.address?.state || '' %>">
-                <input type="text" class="form-control" name="address[zipCode]" placeholder="CEP" value="<%= profile.address?.zipCode || '' %>">
-              </div>
+                 <div class="mb-3">
+                    <label for="cnpj" class="form-label">CNPJ</label>
+                    <input type="text" class="form-control" id="cnpj" name="cnpj" value="<%= profile.cnpj || '' %>" readonly> <!-- CNPJ geralmente não editável -->
+                 </div>
+                 <div class="mb-3">
+                    <label class="form-label">Endereço</label>
+                    <input type="text" class="form-control mb-2" name="address[street]" placeholder="Rua" value="<%= profile.address?.street || '' %>">
+                    <input type="text" class="form-control mb-2" name="address[number]" placeholder="Número" value="<%= profile.address?.number || '' %>">
+                    <input type="text" class="form-control mb-2" name="address[city]" placeholder="Cidade" value="<%= profile.address?.city || '' %>">
+                    <input type="text" class="form-control mb-2" name="address[state]" placeholder="Estado" value="<%= profile.address?.state || '' %>">
+                    <input type="text" class="form-control" name="address[zipCode]" placeholder="CEP" value="<%= profile.address?.zipCode || '' %>">
+                 </div>
               <% } %>
 
-              <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+              <div class="mb-3">
+                <label for="about" class="form-label">Sobre Mim</label>
+                <textarea class="form-control" id="about" name="about" rows="3"><%= profile.about || '' %></textarea>
+              </div>
+
+              <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                  <button type="submit" class="btn btn-primary me-md-2">SALVAR ALTERAÇÕES</button>
+                  <button type="button" class="btn btn-outline-secondary">VER AVALIAÇÕES</button>
+              </div>
             </form>
           </div>
         </div>

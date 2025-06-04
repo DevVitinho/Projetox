@@ -86,4 +86,37 @@
       </div>
     </nav>
   </header>
+
+  <!-- Elemento invisível para trigger de hover da navbar -->
+  <div class="navbar-hover-trigger"></div>
+
+  <script>
+    // Script para controlar a visibilidade da navbar baseado na rolagem, APENAS na página de login
+    const mainElement = document.querySelector('main');
+    const navbar = document.querySelector('.navbar');
+
+    // Verificar se é a página de login
+    if (mainElement && mainElement.classList.contains('login-container')) {
+        let lastScrollTop = 0;
+
+        window.addEventListener('scroll', function() {
+          let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+          if (scrollTop > lastScrollTop) {
+            // Rolando para baixo
+            navbar.classList.add('navbar-hidden');
+          } else {
+            // Rolando para cima
+            navbar.classList.remove('navbar-hidden');
+          }
+          lastScrollTop = scrollTop;
+        });
+    } else {
+        // Para outras páginas, garantir que a navbar não tenha a classe hidden
+        if(navbar) {
+            navbar.classList.remove('navbar-hidden');
+        }
+    }
+  </script>
+
   <main class="py-4">

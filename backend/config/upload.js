@@ -1,11 +1,17 @@
 // config/upload.js
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 
 // Configuração de armazenamento
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, '..', 'public', 'uploads', 'images'));
+    const uploadDir = path.join(__dirname, '..', 'public', 'uploads', 'images');
+    // Criar o diretório se não existir
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true });
+    }
+    cb(null, uploadDir);
   },
   filename: (req, file, cb) => {
     // Gera um nome de arquivo único com timestamp e extensão original
