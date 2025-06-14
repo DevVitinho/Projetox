@@ -5,7 +5,7 @@
   bottom: 32px;
   right: 32px;
   z-index: 9999;
-  background: var(--button-primary);
+  background: var(--accent-blue);
   color: #fff;
   border: none;
   border-radius: 50%;
@@ -19,7 +19,7 @@
   transition: background 0.2s, box-shadow 0.2s;
 }
 #chatbot-fab:hover {
-  background: var(--accent-blue);
+  background: var(--button-primary);
   box-shadow: 0 8px 24px rgba(75,156,211,0.35);
 }
 
@@ -27,9 +27,9 @@
   position: fixed;
   bottom: 112px;
   right: 32px;
-  width: 340px;
+  width: 400px;
   max-width: 95vw;
-  max-height: 500px;
+  max-height: 600px;
   background: var(--bg-card);
   color: var(--text-primary);
   border-radius: 18px;
@@ -47,7 +47,7 @@
 }
 
 #chatbot-header {
-  background: linear-gradient(90deg, var(--accent-blue) 60%, var(--bg-card) 100%);
+  background: linear-gradient(90deg, var(--accent-blue) 60%, var(--button-primary) 100%);
   color: #fff;
   padding: 16px 20px;
   font-weight: bold;
@@ -65,6 +65,12 @@
 }
 #chatbot-header .close-btn:hover {
   opacity: 1;
+}
+
+#chatbot-header i {
+  color: #fff;
+  margin-right: 8px;
+  font-size: 1.2em;
 }
 
 #chatbot-messages {
@@ -173,4 +179,47 @@
     right: 8px;
     bottom: 16px;
   }
+}
+
+/* Estilos para sugestões de serviços */
+.chatbot-sugestao {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid var(--accent-blue);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.chatbot-sugestao:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(75,156,211,0.15);
+}
+
+.sugestao-titulo {
+    font-weight: bold;
+    color: var(--accent-blue);
+    margin-bottom: 4px;
+    font-size: 1.1em;
+}
+
+.sugestao-desc {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+    margin-bottom: 8px;
+}
+
+.sugestao-link {
+    display: inline-block;
+    background: var(--accent-blue);
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9em;
+    transition: background 0.2s;
+}
+
+.sugestao-link:hover {
+    background: var(--button-primary);
 } 

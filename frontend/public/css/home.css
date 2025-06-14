@@ -5,44 +5,56 @@ body {
 
 .hero-section {
   position: relative;
-  min-height: 380px;
+  min-height: 700px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  background: none;
   margin-bottom: 0;
   overflow: hidden;
-}
-.hero-bg {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  height: 100%;
-  width: 100%;
-  /* background: url('/uploads/images/Ambiente de Escritório Moderno e Colaborativo.png') center center/cover no-repeat; */
+  margin-top: 0;
+  padding-top: 45px;
+  background-image: url('/uploads/images/background_form.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   z-index: 0;
-  opacity: 0.7;
 }
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
 .hero-content {
   position: relative;
   z-index: 1;
   padding: 60px 0 40px 0;
   max-width: 600px;
 }
+
 .hero-content h1 {
   font-size: 2.6rem;
   font-weight: 700;
   color: #fff;
   margin-bottom: 10px;
 }
+
 .hero-content .subtitle {
   color: #b0b0b0;
   font-size: 1.2rem;
   margin-bottom: 32px;
 }
+
 .hero-buttons {
   display: flex;
   gap: 16px;
 }
+
 .btn-primary {
   background: #4b9cd3;
   color: #fff;
@@ -54,9 +66,11 @@ body {
   transition: 0.2s;
   text-decoration: none;
 }
+
 .btn-primary:hover {
   background: #357ab8;
 }
+
 .btn-outline {
   background: #23272f;
   color: #4b9cd3;
@@ -68,10 +82,12 @@ body {
   transition: 0.2s;
   text-decoration: none;
 }
+
 .btn-outline:hover {
   background: #4b9cd3;
   color: #fff;
 }
+
 .professionals {
   display: flex;
   justify-content: center;
@@ -80,6 +96,7 @@ body {
   margin-bottom: 40px;
   flex-wrap: wrap;
 }
+
 .professional-card {
   background: #23272f;
   border-radius: 16px;
@@ -90,6 +107,7 @@ body {
   min-width: 220px;
   box-shadow: 0 2px 12px #0002;
 }
+
 .professional-card img {
   width: 56px;
   height: 56px;
@@ -97,31 +115,37 @@ body {
   object-fit: cover;
   border: 2px solid #4b9cd3;
 }
+
 .professional-card .name {
   font-weight: 700;
   color: #fff;
   font-size: 1.1rem;
   display: block;
 }
+
 .professional-card .role {
   color: #b0b0b0;
   font-size: 0.98rem;
 }
+
 .categories {
   margin-bottom: 40px;
 }
+
 .categories h2 {
   text-align: center;
   color: #fff;
   margin-bottom: 28px;
   font-size: 2rem;
 }
+
 .categories-list {
   display: flex;
   justify-content: center;
   gap: 32px;
   flex-wrap: wrap;
 }
+
 .category-card {
   background: #23272f;
   border-radius: 16px;
@@ -136,6 +160,7 @@ body {
   font-size: 1.1rem;
   gap: 12px;
 }
+
 .category-card .icon {
   display: flex;
   align-items: center;
@@ -148,90 +173,26 @@ body {
   font-size: 1.7rem;
   margin-bottom: 6px;
 }
-.benefits {
-  margin-bottom: 40px;
-}
-.benefits h2 {
-  color: #fff;
-  font-size: 2rem;
-  margin-bottom: 18px;
-}
-.benefits ul {
-  list-style: none;
-  padding-left: 0;
-}
-.benefits li {
-  color: #b0b0b0;
-  font-size: 1.1rem;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.benefits li i {
-  color: #4b9cd3;
-  font-size: 1.1rem;
-}
-@media (max-width: 900px) {
-  .professionals, .categories-list {
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-  .hero-content {
-    padding: 40px 0 24px 0;
-  }
-}
-@media (max-width: 600px) {
-  .hero-section {
-    min-height: 220px;
-  }
-  .hero-content h1 {
-    font-size: 1.5rem;
-  }
-  .categories-list, .professionals {
-    gap: 12px;
-  }
-  .category-card, .professional-card {
-    min-width: 90vw;
-    padding: 16px 10px;
-  }
-  .hero-wide-form {
-    padding: 24px 16px;
-    margin: 30px auto;
-    max-width: 90%;
-  }
-  .hero-wide-form h2 {
-    font-size: 1.5rem;
-  }
-  .hero-wide-form .register-link {
-    font-size: 0.8rem;
-  }
-  .hero-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-  .btn-primary, .btn-outline {
-    width: 80%;
-    text-align: center;
-  }
-}
+
 .testimonials {
   margin-top: 40px;
   margin-bottom: 40px;
 }
+
 .testimonials h2 {
   text-align: center;
   color: #fff;
   margin-bottom: 28px;
   font-size: 2rem;
 }
+
 .testimonial-cards {
   display: flex;
   justify-content: center;
   gap: 32px;
   flex-wrap: wrap;
 }
+
 .testimonial-card {
   background: #23272f;
   border-radius: 16px;
@@ -243,6 +204,7 @@ body {
   text-align: center;
   box-shadow: 0 2px 12px #0002;
 }
+
 .testimonial-card img {
   width: 80px;
   height: 80px;
@@ -251,17 +213,20 @@ body {
   border: 3px solid #4b9cd3;
   margin-bottom: 16px;
 }
+
 .testimonial-card .comment {
   color: #b0b0b0;
   font-size: 1rem;
   margin-bottom: 12px;
   font-style: italic;
 }
+
 .testimonial-card .user-name {
   font-weight: 700;
   color: #fff;
   font-size: 1rem;
 }
+
 @media (max-width: 768px) {
   .testimonial-cards {
     flex-direction: column;
@@ -273,219 +238,98 @@ body {
   }
 }
 
-/* Remover estilos antigos do formulário que podem estar causando conflito */
-/*
-.hero-wide-form {
+.hero-section .form-container {
   position: relative;
-  z-index: 1;
-  padding: 32px 24px;
-  background: linear-gradient(#181d23, #181d23) padding-box,
-              linear-gradient(145deg, transparent 35%, var(--accent-blue, #4b9cd3), #40c9ff) border-box;
-  border: 2px solid transparent;
-  max-width: 200px;
-  margin: 50px 0 50px 10%;
-  border-radius: 16px;
-  text-align: left;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-.hero-wide-form h2 {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.hero-wide-form .form .form-group {
-  margin-bottom: 16px;
-}
-
-.hero-wide-form .form-group label {
-    color: var(--text-secondary, #b0b0b0);
-    font-weight: 600;
-    font-size: 0.9rem;
-    display: block;
-    margin-bottom: 5px;
-}
-
-.hero-wide-form .form-group input, 
-.hero-wide-form .form-group select {
-    width: 100%;
-    padding: 12px 16px;
-    border-radius: 8px;
-    color: #fff;
-    font-family: inherit;
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid var(--border-color, #414141);
-    transition: border-color 0.3s ease;
-}
-
-.hero-wide-form .form-group input:focus, 
-.hero-wide-form .form-group select:focus{
-    outline: none;
-    border-color: var(--accent-blue, #4b9cd3);
-    box-shadow: 0 0 0 2px rgba(75, 156, 211, 0.25);
-}
-
-.hero-wide-form .form-submit-btn {
-  display: block;
   width: 100%;
-  background: var(--button-primary, #4b9cd3);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 24px;
-  font-weight: 600;
-  font-size: 1.  cursor: pointer;
-  transition: 0.3s;
-  text-align: center;
-  margin-top: 20px;
+  max-width: 500px;
+  background: rgba(35, 39, 47, 0.7);
+  border-radius: 10px;
+  padding: 30px;
+  z-index: 2;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  margin-left: 5%;
 }
 
-.hero-wide-form .form-submit-btn:hover {
-    background-color: var(--accent-blue, #4b9cd3);
-    opacity: 0.9;
-}
-
-.hero-wide-form .register-link {
-    text-align: center;
-    margin-top: 16px;
-    color: var(--text-secondary, #b0b0b0);
-    font-size: 0.9rem;
-}
-
-.hero-wide-form .register-link a {
-    color: var(--accent-blue, #4b9cd3);
-    text-decoration: none;
-}
-
-.hero-wide-form .register-link a:hover {
-    text-decoration: underline;
-}
-*/
-
-/* From Uiverse.io by gharsh11032000 - Adaptado */
-.form-container {
-  width: 100%;
-  max-width: 450px;
-  background: #23272f;
-  border: none;
-  padding: 32px 24px;
-  font-size: 14px;
-  font-family: inherit;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  box-sizing: border-box;
-  border-radius: 16px;
-  margin: 60px auto 60px 15%;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-}
-
-.form-container button:active {
-  scale: 0.95;
-}
-
-.form-container .form {
+.hero-section .form {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.form-container .form-title {
-  text-align: center;
-  color: #fff;
-  margin-bottom: 10px;
-}
-
-.form-container .form-group {
+.hero-section .form-group {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 8px;
 }
 
-.form-container .form-group label {
-  display: block;
-  margin-bottom: 5px;
+.hero-section .form-group label {
   color: #b0b0b0;
-  font-weight: 600;
-  font-size: 12px;
+  font-size: 14px;
+  font-weight: 500;
 }
 
-.form-container .form-group input,
-.form-container .form-group select {
-  width: 100%;
-  padding: 12px 16px;
-  border-radius: 8px;
-  color: #fff;
-  font-family: inherit;
-  background-color: #181d23;
+.hero-section .form-group input,
+.hero-section .form-group select {
+  padding: 12px;
   border: 1px solid #414141;
+  border-radius: 8px;
+  background-color: #181d23;
+  color: #fff;
+  font-size: 14px;
+  width: 100%;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
 }
 
-.form-container .form-group input::placeholder {
+.hero-section .form-group input::placeholder {
   opacity: 0.5;
 }
 
-.form-container .form-group input:focus,
-.form-container .form-group select:focus {
+.hero-section .form-group input:focus,
+.hero-section .form-group select:focus {
   outline: none;
   border-color: #4b9cd3;
+  background: #23272f;
 }
 
-.form-container .form-submit-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  align-self: stretch;
-  font-family: inherit;
-  color: #fff;
-  font-weight: 600;
+.hero-section .form-submit-btn {
   background: #4b9cd3;
+  color: #fff;
   border: none;
-  padding: 12px 16px;
-  font-size: inherit;
-  gap: 8px;
-  margin-top: 8px;
-  cursor: pointer;
   border-radius: 25px;
-  transition: background-color 0.2s ease;
+  padding: 12px 16px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 8px;
 }
 
-.form-container .form-submit-btn:hover {
-  background-color: #357ab8;
+.hero-section .form-submit-btn:hover {
+  background: #357ab8;
 }
 
-.form-container .register-link {
+.hero-section .register-link {
   text-align: center;
-  margin-top: 10px;
-  font-size: 0.9rem;
   color: #b0b0b0;
+  font-size: 14px;
+  margin-top: 10px;
 }
 
-.form-container .register-link a {
+.hero-section .register-link a {
   color: #4b9cd3;
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 500;
 }
 
-.form-container .register-link a:hover {
+.hero-section .register-link a:hover {
   text-decoration: underline;
 }
 
-/* Ajustes para responsividade */
 @media (max-width: 600px) {
-  .form-container {
-    margin: 30px auto;
-    max-width: 90%;
-    padding: 24px 16px;
-  }
-  .form-container .form-submit-btn {
-    width: 100%;
+  .hero-section .form-container {
+    width: 90%;
+    padding: 20px;
   }
 } 

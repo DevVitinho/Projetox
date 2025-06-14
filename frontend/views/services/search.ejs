@@ -1,6 +1,6 @@
 <%- include('../partials/header') %>
 
-<div class="container">
+<div class="container search-page-container">
   <h2 class="section-header mb-4">Buscar Serviços</h2>
   
   <div class="card mb-4">
@@ -76,11 +76,11 @@
               <div class="d-flex justify-content-between align-items-center mb-2">
                 <div>
                   <i class="fas fa-money-bill-wave text-success"></i>
-                  <strong class="ms-1">R$ <%= service.price.toFixed(2) %></strong>
+                  <strong class="ms-1 service-price">R$ <%= service.price.toFixed(2) %></strong>
                 </div>
                 <div>
                   <i class="fas fa-map-marker-alt text-danger"></i>
-                  <span class="ms-1"><%= service.location || 'Não informado' %></span>
+                  <span class="ms-1 service-location"><%= service.location || 'Não informado' %></span>
                 </div>
               </div>
             </div>

@@ -6,6 +6,7 @@
     <title><%= title %></title>
     <link rel="stylesheet" href="/css/welcome.css">
     <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/chatbot.css">
 </head>
 <body>
     <%- include('partials/header') %>
@@ -13,10 +14,9 @@
     <main>
         <!-- HERO SECTION -->
         <section class="hero-section">
-            <!-- <div class="hero-bg"></div> Removido o fundo -->
+            <!-- Imagem de fundo será adicionada via CSS ::before -->
               <div class="form-container">
                 <form class="form">
-                  <h2 class="form-title">Bem vindos!</h2>
                   <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" required="">
@@ -36,8 +36,7 @@
                   <p class="register-link">Não tem conta? <a href="/register">Cadastre-se</a></p>
                 </form>
               </div>
-            </div>
-        </section>
+            </section>
 
         <!-- CATEGORIAS POPULARES -->
         <section class="categories container">
@@ -62,34 +61,21 @@
             </div>
         </section>
 
-        <!-- BENEFÍCIOS -->
-        <section class="benefits container">
-            <h2>Por que usar o Serviços+?</h2>
-            <ul>
-                <li><i class="fas fa-check"></i> Profissionais verificados</li>
-                <li><i class="fas fa-check"></i> Pagamento seguro</li>
-                <li><i class="fas fa-check"></i> Suporte 24h</li>
-            </ul>
-        </section>
-
         <!-- DEPOIMENTOS -->
         <section class="testimonials container">
             <h2>O que dizem nossos usuários</h2>
             <div class="testimonial-cards">
                 <div class="testimonial-card">
-                    <img src="/uploads/images/user01.jpg" alt="Usuário 1">
+                    <img src="/uploads/images/Usuario1.png" alt="Usuário 1">
                     <p class="comment">"Encontrei um ótimo eletricista em menos de 5 minutos. Super recomendo!"</p>
-                    <span class="user-name">Usuário 1</span>
                 </div>
                 <div class="testimonial-card">
-                    <img src="/uploads/images/user02.jpg" alt="Usuário 2">
+                    <img src="/uploads/images/Usuario2.png" alt="Usuário 2">
                     <p class="comment">"Fácil de usar, profissionais qualificados e atendimento excelente."</p>
-                    <span class="user-name">Usuário 2</span>
                 </div>
                 <div class="testimonial-card">
-                    <img src="/uploads/images/user03.jpg" alt="Usuário 3">
+                    <img src="/uploads/images/usuario3.png" alt="Usuário 3">
                     <p class="comment">"Minha família adorou o serviço!"</p>
-                    <span class="user-name">Usuário 3</span>
                 </div>
             </div>
         </section>
@@ -99,5 +85,8 @@
     </main>
 
     <%- include('partials/footer') %>
+    
+    <!-- Scripts -->
+    <script src="/js/chatbot.js"></script>
 </body>
 </html> 

@@ -17,7 +17,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../frontend/public')));
-app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
+app.use('/uploads', express.static(path.join(__dirname, '../frontend/public/uploads')));
 app.use(methodOverride('_method'));
 
 // Session
@@ -46,6 +46,7 @@ app.use('/company', require('./routes/company.routes'));
 app.use('/services', require('./routes/service.routes'));
 app.use('/profile', require('./routes/profile.routes'));
 app.use('/api', require('./routes/api/index.routes'));
+app.use('/api/chatbot', require('./routes/chatbot'));
 
 // Error handler
 app.use((err, req, res, next) => {

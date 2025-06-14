@@ -28,6 +28,7 @@ body {
     color: var(--text-primary);
     background-color: var(--bg-dark);
     min-height: 100vh;
+    padding-top: 0; /* Remove o padding do body para que a hero-section comece no topo */
 }
 
 small{
@@ -132,7 +133,7 @@ h6 {
 
 .card-title {
     font-size: 18px;
-    color: var(--text-primary);
+    color: var(--accent-blue);
 }
 
 .card-subtitle {
@@ -150,9 +151,8 @@ h6 {
 }
 
 .card-text {
-    color: var(--text-primary);
+    color: var(--text-secondary);
     margin-bottom: 12px;
-    color: white;
 }
 
 /* Formulários */
@@ -259,37 +259,37 @@ h6 {
 
 /* Navegação */
 .navbar {
-    padding: 0.5rem 1rem !important;
-    background-color: transparent;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     position: fixed;
-    width: 100%;
-    top: 0; /* Manter visível no topo */
+    top: 0;
     left: 0;
+    width: 100%;
+    background-color: rgba(18, 18, 18, 0.1); /* Ainda mais transparente por padrão */
+    padding: 3px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     z-index: 1000;
-    transition: top 0.3s ease-in-out; /* Manter transição para futuras implementações */
+    box-shadow: none;
+    transition: background-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
 }
 
-/* Remover regras de esconder/mostrar */
-/* .navbar-hidden-on-scroll {
-    top: -100px;
+.navbar:hover {
+    background-color: rgba(18, 18, 18, 0.1); /* Quase transparente no hover */
+}
+
+.navbar-hidden {
+    transform: translateY(-100%) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
 }
 
 .navbar-hover-trigger {
-    ...
-}
-
-.navbar-hidden-on-hover {
-    top: -100px;
-}
-
-.navbar-hover-trigger:hover ~ header .navbar {
-    top: 0 !important;
-} */
-
-/* Remover também a classe navbar-hidden se existir */
-.navbar-hidden {
-    top: 0 !important; /* Garantir que não fique escondida */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40px; /* Altura da área de hover */
+    z-index: 999;
 }
 
 .navbar-brand {
@@ -383,6 +383,14 @@ footer {
     color: var(--accent-blue);
 }
 
+.neon-blue-text {
+    color: #4b9cd3; /* Cor base azul */
+    text-shadow:
+        0 0 2px #4b9cd3,   /* Sombra interna sutil */
+        0 0 5px #4b9cd3,  /* Sombra um pouco mais forte */
+        0 0 10px #4b9cd3; /* Efeito de brilho mais suave */
+}
+
 /* Classes de utilidade */
 .border-accent {
     border-color: var(--accent-blue) !important;
@@ -396,26 +404,11 @@ footer {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Estilos específicos para a página de Login */
-.login-container.container {
-    display: flex;
-    justify-content: flex-start;
+.search-page-container {
+  margin-top: 30px; /* Ajustado para espaçamento adicional após padding-top do body */
 }
 
-.background-image-container {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-    background-image: url('/images/sua-imagem.jpg');
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.login-container .form-container {
-    background-color: rgba(33, 33, 33, 0.7);
+.service-price,
+.service-location {
+  color: #fff; /* Define a cor do texto para branco */
 }
